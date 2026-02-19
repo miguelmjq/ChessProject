@@ -6,16 +6,14 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.net.URL;
-import java.awt.Toolkit;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
 //You will be implmenting a part of a function and a whole function in this document. Please follow the directions for the 
 //suggested order of completion that should make testing easier.
@@ -60,19 +58,19 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         this.addMouseMotionListener(this);
 
         // TO BE IMPLEMENTED FIRST
-
         // for (.....)
         // populate the board with squares here. Note that the board is composed of 64
         // squares alternating from white to black.
-        boolean wturn = false;
-        // for (int i = 0; i<=8;i++){
-        // for (int k= 0; i<=8; i++){
-        // this.add(this.add(board[i][k]));
-        // }
-        // }
-        board[0][0] = new Square(this, wturn, 0, 0);
-        this.add(board[0][0]);
-
+        boolean whiteSquare = true;
+        for(int row = 0; row<8; row++){
+            int column =0;
+            for (column=0; column <8; column++) {
+                board[row][column]= new Square(this, whiteSquare, row,column);
+                this.add(board[row][column]);
+                whiteSquare = !whiteSquare;
+            }
+            whiteSquare = !whiteSquare;
+        }
         initializePieces();
 
         this.setPreferredSize(new Dimension(400, 400));
@@ -91,7 +89,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     // it's up to you how you wish to arrange your pieces.
     void initializePieces() {
 
-        // board[0][0].put(new Piece(true, path+ RESOURCES_WKING_PNG));
+         board[1][1].put(new Piece(true, path+ RESOURCES_WKING_PNG));
 
     }
 
