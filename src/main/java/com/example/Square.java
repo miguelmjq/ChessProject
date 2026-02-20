@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 
-//Please read the following class carefully! It represents a single chess board square and is what you'll be using
+//Please read the following class carefully! 
+//It represents a single chess board square and is what you'll be using
 //to represent the chessboard.
-@SuppressWarnings("serial")
+@SuppressWarnings("unused")
 public class Square extends JComponent {
 	//a reference back to the board that stores this square.
     private Board b;
@@ -20,7 +21,9 @@ public class Square extends JComponent {
     private Piece occupyingPiece;
     
     //if desired you can use this to retain the piece where it is but make it invisible to the user. 
-    //True means to display the piece. This property will be switched to false when we are dragging a piece around while choosing our next move.
+    //True means to display the piece. 
+    //This property will be switched to false when we are dragging 
+    //a piece around while choosing our next move.
     private boolean dispPiece;
     
     //the coordinates of the square.

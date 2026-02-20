@@ -12,6 +12,7 @@ import javax.swing.*;
 
 //Warning* Mess with this file at your own peril. You do not need to modify anything in here other than the 
 //messages that pop up (see below). Everything else should already work.
+@SuppressWarnings("unused")
 public class GameWindow {
     private JFrame gameWindow;
     

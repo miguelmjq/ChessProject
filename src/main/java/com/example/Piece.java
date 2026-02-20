@@ -11,6 +11,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 //you will need to implement two functions in this file.
+@SuppressWarnings("unused")
 public class Piece {
     private final boolean color;
     private BufferedImage img;
@@ -56,11 +57,30 @@ public class Piece {
 
     //TO BE IMPLEMENTED!
     //implement the move function here
-    //it's up to you how the piece moves, but at the very least the rules should be logical and it should never move off the board!
+    //it's up to you how the piece moves, but at the very least 
+    //the rules should be logical and it should never move off the board!
     //returns an arraylist of squares which are legal to move to
-    //please note that your piece must have some sort of logic. Just being able to move to every square on the board is not
+    //please note that your piece must have some sort of logic. 
+    //Just being able to move to every square on the board is not
     //going to score any points.
+
+    //RULES:
+    //The pawn can move one piece forward at a time
+    //If it is the pawns first move, it can move 2 spaces forward
+    //If a piece is one space diagonally left or right to the pawn, 
+    //then it can move to that space and capture it.
     public ArrayList<Square> getLegalMoves(Board b, Square start){
+	    ArrayList<Square> moves = new ArrayList<Square>();
+        //white moveset
+        if (start.getColor()){
+            if(start.getRow()==6){
+                moves.add(b.getSquareArray()[start.getRow()-2][start.getCol()]);
+            }
+            if(start.getRow()>=0){
+                moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()]);
+            }
+
+        }
     	return null;
     }
 }
