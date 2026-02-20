@@ -6,8 +6,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -64,30 +62,68 @@ public class Piece {
     // RULES:
     // The pawn can move one piece forward at a time
     // If it is the pawns first move, it can move 2 spaces forward
-    // If a piece is one space diagonally left or right to the pawn,
+    // If a piece is one space diagonally forward left or right to the pawn,
     // then it can move to that space and capture it.
     public ArrayList<Square> getLegalMoves(Board b, Square start) {
         ArrayList<Square> moves = new ArrayList<Square>();
-        //capture check white
-        //NOT READY NEEDS FIXING SERPARATE THE IF STATEMENTS
-        if(((b.getSquareArray()[start.getRow()-1][start.getCol()-1]).isOccupied()||(b.getSquareArray()[start.getRow()-1][start.getCol()+1]).isOccupied())
-        &&
-        (b.getSquareArray()[start.getRow()-1][start.getCol()-1].getColor()!=true)||b.getSquareArray()[start.getRow()-1][start.getCol()+1].getColor()!=true)
-        {
-            moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()-1]);
-            moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()+1]);
-        }
-        
+
         // white moveset
+        {
         if (start.getColor()) {
+                    //white capture
+        {
+        if(((b.getSquareArray()[start.getRow()-1][start.getCol()+1]).isOccupied())
+            &&
+        b.getSquareArray()[start.getRow()-1][start.getCol()+1].getColor()!=true)
+        {
+            moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()+1]);
+            System.out.println("capture worked");
+        }
+        if((b.getSquareArray()[start.getRow()-1][start.getCol()-1].isOccupied())
+            &&
+        (b.getSquareArray()[start.getRow()-1][start.getCol()-1].getColor()!=true)){
+            moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()-1]);
+            System.out.println("capture worked");
+        }
+    }
             if (start.getRow() == 6 && ((b.getSquareArray()[start.getRow() - 2][start.getCol()]).isOccupied() != true)) {
                 moves.add(b.getSquareArray()[start.getRow() - 2][start.getCol()]);
+                System.out.println("move2 worked");
             }
             if (start.getRow()-1 >= 0 && (((b.getSquareArray()[start.getRow()-1][start.getCol()]).isOccupied() != true))) {
                 moves.add(b.getSquareArray()[start.getRow() - 1][start.getCol()]);
+                System.out.println("move1 worked");
             }
 
         }
+    }
+        // black moveset
+        {
+        if (start.getColor()!=true) {
+                    //black capture
+        {
+        if(((b.getSquareArray()[start.getRow()+1][start.getCol()+1]).isOccupied())
+            &&
+        b.getSquareArray()[start.getRow()+1][start.getCol()+1].getColor()!=true)
+        {
+            moves.add(b.getSquareArray()[start.getRow()+1][start.getCol()+1]);
+        }
+        if((b.getSquareArray()[start.getRow()+1][start.getCol()-1].isOccupied())
+            &&
+        (b.getSquareArray()[start.getRow()+1][start.getCol()-1].getColor()!=true))
+        {
+            moves.add(b.getSquareArray()[start.getRow()+1][start.getCol()-1]);
+        }
+    }
+            if (start.getRow() == 1 && ((b.getSquareArray()[start.getRow() + 2][start.getCol()]).isOccupied() != true)) {
+                moves.add(b.getSquareArray()[start.getRow() + 2][start.getCol()]);
+            }
+            if (start.getRow()+1 <8 && (((b.getSquareArray()[start.getRow()-1][start.getCol()]).isOccupied() != true))) {
+                moves.add(b.getSquareArray()[start.getRow() + 1][start.getCol()]);
+            }
+
+        }
+    }
         return moves;
     }
 }
