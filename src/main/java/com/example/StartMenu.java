@@ -1,4 +1,5 @@
 package com.example;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Image;
@@ -17,61 +18,59 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
 //You need not mess with this file at all! If you do mess with it you do so at your own peril!
 public class StartMenu implements Runnable {
     public void run() {
         final JFrame startWindow = new JFrame("Chess");
         // Set window properties
-        startWindow.setLocation(300,100);
+        startWindow.setLocation(300, 100);
         startWindow.setResizable(false);
         startWindow.setSize(260, 240);
-        
+
         Box components = Box.createVerticalBox();
         startWindow.add(components);
-        
+
         // Game title
         final JPanel titlePanel = new JPanel();
         components.add(titlePanel);
         final JLabel titleLabel = new JLabel("Chess");
         titlePanel.add(titleLabel);
-        
+
         // Black player selections
         final JPanel blackPanel = new JPanel();
         components.add(blackPanel, BorderLayout.EAST);
         final JLabel blackPiece = new JLabel();
         try {
-            Image blackImg = ImageIO.read(new File(System.getProperty("user.dir")+"/src/main/java/com/example/Pictures/bp.png"));
+            Image blackImg = ImageIO
+                    .read(new File(System.getProperty("user.dir") + "/src/main/java/com/example/Pictures/bp.png"));
             blackPiece.setIcon(new ImageIcon(blackImg));
             blackPanel.add(blackPiece);
         } catch (Exception e) {
             System.out.println(System.getProperty("user.dir"));
             System.out.println("Required game file bp.png missing");
         }
-        
-        
-        
+
         final JTextField blackInput = new JTextField("Black", 10);
         blackPanel.add(blackInput);
-        
+
         // White player selections
         final JPanel whitePanel = new JPanel();
         components.add(whitePanel);
         final JLabel whitePiece = new JLabel();
-        
+
         try {
-            Image whiteImg = ImageIO.read(new File(System.getProperty("user.dir")+"/src/main/java/com/example/Pictures/wp.png"));
+            Image whiteImg = ImageIO
+                    .read(new File(System.getProperty("user.dir") + "/src/main/java/com/example/Pictures/wp.png"));
             whitePiece.setIcon(new ImageIcon(whiteImg));
             whitePanel.add(whitePiece);
             startWindow.setIconImage(whiteImg);
-        }  catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Required game file wp.png missing");
         }
-        
-        
+
         final JTextField whiteInput = new JTextField("White", 10);
         whitePanel.add(whiteInput);
-        
+
         // Timer settings
         final String[] minSecInts = new String[60];
         for (int i = 0; i < 60; i++) {
@@ -81,55 +80,54 @@ public class StartMenu implements Runnable {
                 minSecInts[i] = Integer.toString(i);
             }
         }
-        
+
         final JComboBox<String> seconds = new JComboBox<String>(minSecInts);
         final JComboBox<String> minutes = new JComboBox<String>(minSecInts);
-        final JComboBox<String> hours = 
-                new JComboBox<String>(new String[] {"0","1","2","3"});
-        
+        final JComboBox<String> hours = new JComboBox<String>(new String[] { "0", "1", "2", "3" });
+
         Box timerSettings = Box.createHorizontalBox();
-        
+
         hours.setMaximumSize(hours.getPreferredSize());
         minutes.setMaximumSize(minutes.getPreferredSize());
         seconds.setMaximumSize(minutes.getPreferredSize());
-        
+
         timerSettings.add(hours);
         timerSettings.add(Box.createHorizontalStrut(10));
         timerSettings.add(seconds);
         timerSettings.add(Box.createHorizontalStrut(10));
         timerSettings.add(minutes);
-        
+
         timerSettings.add(Box.createVerticalGlue());
-        
+
         components.add(timerSettings);
-        
+
         // Buttons
         Box buttons = Box.createHorizontalBox();
         final JButton quit = new JButton("Quit");
-        
+
         quit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-              startWindow.dispose();
+                startWindow.dispose();
             }
-          });
-        
+        });
+
         final JButton instr = new JButton("Instructions");
-        
+
         instr.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
+
                 JOptionPane.showMessageDialog(startWindow,
                         "To begin a new game, input player names\n" +
-                        "next to the pieces. Set the clocks and\n" +
-                        "click \"Start\". Setting the timer to all\n" +
-                        "zeroes begins a new untimed game.",
+                                "next to the pieces. Set the clocks and\n" +
+                                "click \"Start\". Setting the timer to all\n" +
+                                "zeroes begins a new untimed game.",
                         "How to play",
                         JOptionPane.PLAIN_MESSAGE);
             }
-          });
-        
+        });
+
         final JButton start = new JButton("Start");
-        
+
         start.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String bn = blackInput.getText();
@@ -143,15 +141,15 @@ public class StartMenu implements Runnable {
                 new GameWindow(bn, wn, hh, mm, ss);
                 startWindow.dispose();
             }
-          });
-        
+        });
+
         buttons.add(start);
         buttons.add(Box.createHorizontalStrut(10));
         buttons.add(instr);
         buttons.add(Box.createHorizontalStrut(10));
         buttons.add(quit);
         components.add(buttons);
-        
+
         Component space = Box.createGlue();
         components.add(space);
 
