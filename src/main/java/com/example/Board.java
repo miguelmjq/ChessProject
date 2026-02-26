@@ -100,7 +100,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     // number of pieces on either side.
     // it's up to you how you wish to arrange your pieces.
     void initializePieces() {
-
+        board[7][4].put(new Piece(true, RESOURCES_WKING_PNG));
+        board[0][4].put(new Piece(true, RESOURCES_BKING_PNG));
         for (int i = 0; i < 8; i++) {
             board[6][i].put(new Piece(true, RESOURCES_WPAWN_PNG));
             board[1][i].put(new Piece(false, RESOURCES_BPAWN_PNG));
@@ -136,9 +137,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         if (imageUrl != null) {
             // This is the cleanest way to get an AWT Image object from a URL
             backgroundImage = Toolkit.getDefaultToolkit().createImage(imageUrl);
-        } else {
-            System.err.println("Image resource not found. Check path: /src/main/java/com/example/Pictures/");
-        }
+        } 
 
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
@@ -146,7 +145,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 if (sq == fromMoveSquare)
                     sq.setBorder(BorderFactory.createLineBorder(Color.blue));
                 sq.paintComponent(g);
-                System.out.println("Painting square at " + x + ", " + y);
+               // System.out.println("Painting square at " + x + ", " + y);
 
             }
         }
@@ -166,11 +165,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
         Square sq = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
 
-        if (sq.isOccupied()) {
+        if (sq.isOccupied() && sq.getOccupyingPiece().getColor() == whiteTurn) {
             currPiece = sq.getOccupyingPiece();
             fromMoveSquare = sq;
-            if (currPiece.getColor() != whiteTurn)
-                return;
             sq.setDisplay(false);
         }
         repaint();
@@ -186,9 +183,14 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         @SuppressWarnings("unused")
         Square endSquare = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
 
+        
         // using currPiece
-
-        fromMoveSquare.setDisplay(true);
+        if(fromMoveSquare!= null){
+            if (currPiece!=null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare))
+                endSquare.put(currPiece);
+                fromMoveSquare.removePiece();
+                fromMoveSquare.setDisplay(true);
+        }
         currPiece = null;
         repaint();
     }
