@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 //you will need to implement two functions in this file.
-@SuppressWarnings("unused")
 public class Piece {
     private final boolean color;
     private BufferedImage img;
@@ -58,12 +57,14 @@ public class Piece {
     // please note that your piece must have some sort of logic.
     // Just being able to move to every square on the board is not
     // going to score any points.
-    //public boolean inBounds(int r, int c){
-    //    if (){
-//
-    //    }
-    //    return false;
-    //}
+    public boolean inBounds(int startr, int startc, boolean color ){
+        if (color){
+            return (startr-1>=0) && (startc-1>=0 || startc+1<8);
+        }
+        else{
+            return (startr+1<8) && (startc-1>=0 || startc+1<8);
+        }
+    }
 
     // RULES:
     // The pawn can move one piece forward at a time
@@ -77,28 +78,33 @@ public class Piece {
         
         // white moveset
         {
-        if (start.getColor()) {
-                    //white capture
+            if (start.getColor()) {
+                        //white capture
+            
+            if(inBounds(start.getRow(), start.getCol(), true)&&((b.getSquareArray()[start.getRow()-1][start.getCol()+1]).isOccupied()==true)
+                &&
+            b.getSquareArray()[start.getRow()-1][start.getCol()+1].getColor()!=true)
+            {
+                System.out.println("wcl");
+                moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()+1]);
+
+            }
+            if(inBounds(start.getRow(), start.getCol(), true)&&((b.getSquareArray()[start.getRow()-1][start.getCol()-1]).isOccupied()==true)
+                &&
+            b.getSquareArray()[start.getRow()-1][start.getCol()-1].getColor()!=true)
+            {
+                System.out.println("wcr");
+                moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()-1]);
+
+            }
         
-        if(((b.getSquareArray()[start.getRow()-1][start.getCol()+1]).isOccupied()==true)
-            &&
-        b.getSquareArray()[start.getRow()-1][start.getCol()+1].getColor()!=true)
-        {
-            moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()+1]);
-
-        }
-        if((b.getSquareArray()[start.getRow()-1][start.getCol()-1].isOccupied())
-            &&
-        (b.getSquareArray()[start.getRow()-1][start.getCol()-1].getColor()!=true)){
-            moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()-1]);
-
-        }
-    
-            if (start.getRow() == 6 && ((b.getSquareArray()[start.getRow() - 2][start.getCol()]).isOccupied() != true)) {
+            if (start.getRow() == 6 && ((b.getSquareArray()[start.getRow() - 2][start.getCol()]).isOccupied()) != true) {
+                System.out.println("w2");
                 moves.add(b.getSquareArray()[start.getRow() - 2][start.getCol()]);
 
             }
             if (start.getRow()-1 >= 0 && (((b.getSquareArray()[start.getRow()-1][start.getCol()]).isOccupied() != true))) {
+                System.out.println("w1");
                 moves.add(b.getSquareArray()[start.getRow() - 1][start.getCol()]);
 
             }
@@ -110,15 +116,15 @@ public class Piece {
         if (start.getColor()!=true) {
                     //black capture
         
-        if(((b.getSquareArray()[start.getRow()+1][start.getCol()+1]).isOccupied())
+        if(inBounds(start.getRow(), start.getCol(), false)&&((b.getSquareArray()[start.getRow()+1][start.getCol()+1]).isOccupied())
             &&
         b.getSquareArray()[start.getRow()+1][start.getCol()+1].getColor()==true)
         {
             moves.add(b.getSquareArray()[start.getRow()+1][start.getCol()+1]);
         }
-        if((b.getSquareArray()[start.getRow()+1][start.getCol()-1].isOccupied())
+        if(inBounds(start.getRow(), start.getCol(), false)&&(b.getSquareArray()[start.getRow()+1][start.getCol()-1].isOccupied())
             &&
-        (b.getSquareArray()[start.getRow()+1][start.getCol()-1].getColor()==true))
+        ((b.getSquareArray()[start.getRow()+1][start.getCol()-1].getColor()==true)))
         {
             moves.add(b.getSquareArray()[start.getRow()+1][start.getCol()-1]);
         }
@@ -126,7 +132,7 @@ public class Piece {
             if (start.getRow() == 1 && ((b.getSquareArray()[start.getRow() + 2][start.getCol()]).isOccupied() != true)) {
                 moves.add(b.getSquareArray()[start.getRow() + 2][start.getCol()]);
             }
-            if (start.getRow()+1 <8 && (((b.getSquareArray()[start.getRow()-1][start.getCol()]).isOccupied() != true))) {
+            if (start.getRow()+1 <8 && (((b.getSquareArray()[start.getRow()+1][start.getCol()]).isOccupied() != true))) {
                 moves.add(b.getSquareArray()[start.getRow() + 1][start.getCol()]);
             }
         }

@@ -97,11 +97,11 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     // set up the board such that the black pieces are on one side and the white
     // pieces are on the other.
     // since we only have one kind of piece for now you need only set the same
-    // number of pieces on either side.
+    // number of pieces on either side.f
     // it's up to you how you wish to arrange your pieces.
     void initializePieces() {
         board[7][4].put(new Piece(true, RESOURCES_WKING_PNG));
-        board[0][4].put(new Piece(true, RESOURCES_BKING_PNG));
+        board[0][4].put(new Piece(false, RESOURCES_BKING_PNG));
         for (int i = 0; i < 8; i++) {
             board[6][i].put(new Piece(true, RESOURCES_WPAWN_PNG));
             board[1][i].put(new Piece(false, RESOURCES_BPAWN_PNG));
@@ -183,9 +183,13 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         @SuppressWarnings("unused")
         Square endSquare = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
 
-        
+        for(Square[] row: board){
+            for(Square s: row){
+                s.setBorder(null);
+            }
+        }
         // using currPiece
-        if(fromMoveSquare!= null){
+        if(fromMoveSquare!= null&&(fromMoveSquare!=endSquare)){
             if (currPiece!=null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare))
                 endSquare.put(currPiece);
                 fromMoveSquare.removePiece();
