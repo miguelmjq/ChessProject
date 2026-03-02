@@ -188,12 +188,27 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 s.setBorder(null);
             }
         }
+        
+        if (endSquare == null || fromMoveSquare == endSquare) {
+            fromMoveSquare.setDisplay(true);
+            currPiece = null;
+            repaint();
+            return;
+        }
+
         // using currPiece
-        if(fromMoveSquare!= null&&(fromMoveSquare!=endSquare)){
-            if (currPiece!=null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare))
+        if (fromMoveSquare != null && (fromMoveSquare != endSquare)) {
+            boolean moved = false;
+            if (currPiece != null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)) {
                 endSquare.put(currPiece);
+                endSquare.setDisplay(true);
+                moved = true;
+            }
+            if (moved) {
                 fromMoveSquare.removePiece();
+            } else {
                 fromMoveSquare.setDisplay(true);
+            }
         }
         currPiece = null;
         repaint();
