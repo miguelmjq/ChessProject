@@ -47,22 +47,30 @@ public class Piece {
     // if the piece capture into it legally.
     public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
         ArrayList<Square> controlledSquares = new ArrayList<Square>();
-        if (start == null || board == null)         
-        return controlledSquares;
-    
+        if (start == null || board == null){   
+           return controlledSquares;
+        }
         boolean iswhite = this.getColor();
         int row = start.getRow();
         int col = start.getCol();
-        if(row-1>=0 && row+1<8 && col-1>=0 && col+1< 8){
-            if (iswhite){
-                controlledSquares.add(board[row-1][col-1]);
-                controlledSquares.add(board[row-1][col+1]);
+        if (iswhite){
+            if ((row-1>=0)&&(col-1>=0)){
+            controlledSquares.add(board[row-1][col-1]);
             }
-            else{
-                controlledSquares.add(board[row+1][col-1]);
-                controlledSquares.add(board[row+1][col+1]);
+            if ((row-1>=0)&&(col+1<8)){
+            controlledSquares.add(board[row-1][col+1]);
             }
         }
+        else{
+            if ((row+1<8)&&(col-1>=0)){
+            controlledSquares.add(board[row+1][col-1]);
+            }
+            if ((row+1<8)&&(col+1<8)){
+            controlledSquares.add(board[row+1][col+1]);
+            }
+        }
+        
+
         return controlledSquares;
     }
 
@@ -154,18 +162,18 @@ public class Piece {
                 //left capture
                 if ((sr+1<8)&&(sc-1>=0)
                     &&
-                    b.getSquareArray()[sr-1][sc-1].isOccupied()
+                    b.getSquareArray()[sr+1][sc-1].isOccupied()
                     &&
-                    b.getSquareArray()[sr-1][sc-1].getOccupyingPiece().getColor() !=iswhite
+                    b.getSquareArray()[sr+1][sc-1].getOccupyingPiece().getColor() !=iswhite
                 ) {
                     moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()-1]);
                 }
                 //right capture
                 if ((sr+1<8)&&(sc+1<8)
                     &&
-                    b.getSquareArray()[sr-1][sc+1].isOccupied()
+                    b.getSquareArray()[sr+1][sc+1].isOccupied()
                     &&
-                    b.getSquareArray()[sr-1][sc+1].getOccupyingPiece().getColor() !=iswhite
+                    b.getSquareArray()[sr+1][sc+1].getOccupyingPiece().getColor() !=iswhite
                 ) {
                     moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()+1]);
                 }
