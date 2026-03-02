@@ -61,6 +61,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     private int currX;
     private int currY;
 
+    //precon: 
+    //poscon: creates an 8x8 chess board that is displayed
     public Board(GameWindow g) {
         this.g = g;
         board = new Square[8][8];
@@ -69,10 +71,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
 
-        // TO BE IMPLEMENTED FIRST
-        // for (.....)
-        // populate the board with squares here. Note that the board is composed of 64
-        // squares alternating from white to black.
+
         boolean whiteSquare = true;
         for (int row = 0; row < 8; row++) {
             int column = 0;
@@ -94,11 +93,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     }
 
-    // set up the board such that the black pieces are on one side and the white
-    // pieces are on the other.
-    // since we only have one kind of piece for now you need only set the same
-    // number of pieces on either side.f
-    // it's up to you how you wish to arrange your pieces.
+    //precon: N/A
+    //poscon: puts the pawns and kings on the board
     void initializePieces() {
         board[7][4].put(new Piece(true, RESOURCES_WKING_PNG));
         board[0][4].put(new Piece(false, RESOURCES_BKING_PNG));
@@ -173,11 +169,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         repaint();
     }
 
-    // TO BE IMPLEMENTED!
-    // should move the piece to the desired location only if this is a legal move.
-    // use the pieces "legal move" function to determine if this move is legal, then
-    // complete it by
-    // moving the new piece to it's new board location.
+    //precon: dragging a piece
+    //poscon: moves the piece to another square if the square selected is valid.
     @Override
     public void mouseReleased(MouseEvent e) {
         @SuppressWarnings("unused")
@@ -188,7 +181,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 s.setBorder(null);
             }
         }
-        
+
         if (endSquare == null || fromMoveSquare == endSquare) {
             fromMoveSquare.setDisplay(true);
             currPiece = null;
