@@ -164,10 +164,19 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         if (sq.isOccupied() && sq.getOccupyingPiece().getColor() == whiteTurn) {
             currPiece = sq.getOccupyingPiece();
             fromMoveSquare = sq;
+            for(Square s: currPiece.getControlledSquares(board, fromMoveSquare)){
+                s.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
+            }
+            for(Square s: currPiece.getLegalMoves(this, fromMoveSquare)){
+                s.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+            }
+           
+
             sq.setDisplay(false);
         }
         repaint();
     }
+
 
     //precon: dragging a piece
     //poscon: moves the piece to another square if the square selected is valid.

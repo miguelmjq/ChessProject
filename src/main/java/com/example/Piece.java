@@ -72,6 +72,7 @@ public class Piece {
             }
         }
 
+        
         return controlledSquares;
     }
 
@@ -180,7 +181,6 @@ public class Piece {
             }
 
         }
-        
         return moves;
     }
 }
