@@ -1,3 +1,5 @@
+//Miguel M
+// Pawn, moves forward one square and captures diagonally forward. Can move forward 2 spaces if it's the pawn's first move.
 package com.example;
 
 import java.awt.Graphics;
