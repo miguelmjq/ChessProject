@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 //You will be implmenting a part of a function and a whole function in this document.
 // Please follow the directions for the 
 //suggested order of completion that should make testing easier.
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 public class Board extends JPanel implements MouseListener, MouseMotionListener {
     // Resource location constants for piece images
     private static final String path = "/src/main/java/com/example/Pictures/";
@@ -34,9 +34,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     private static final String RESOURCES_WROOK_PNG = path + "wrook.png";
     @SuppressWarnings("unused")
     private static final String RESOURCES_BROOK_PNG = path + "brook.png";
-    @SuppressWarnings("unused")
+   // @SuppressWarnings("unused")
     private static final String RESOURCES_WKING_PNG = path + "wking.png";
-    @SuppressWarnings("unused")
+    //@SuppressWarnings("unused")
     private static final String RESOURCES_BKING_PNG = path + "bking.png";
     @SuppressWarnings("unused")
     private static final String RESOURCES_BQUEEN_PNG = path + "bqueen.png";
@@ -182,7 +182,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     //poscon: moves the piece to another square if the square selected is valid.
     @Override
     public void mouseReleased(MouseEvent e) {
-        @SuppressWarnings("unused")
+        //@SuppressWarnings("unused")
         Square endSquare = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
 
         for(Square[] row: board){
