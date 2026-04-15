@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 
+@SuppressWarnings("unused")
 public class Piece {
-    private boolean color;
-    private BufferedImage img;
+    protected boolean color;
+    protected BufferedImage img;
 
     public Piece(boolean color, String img_file) {
         this.color = color;

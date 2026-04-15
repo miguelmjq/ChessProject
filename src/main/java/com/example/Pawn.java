@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 //you will need to implement two functions in this file.
+
 public class Pawn extends Piece{
 
 
@@ -19,15 +20,10 @@ public class Pawn extends Piece{
             super(isWhite, img_file);
     }
 
-
-
-
-
-
-
     // precon: a valid double square array, a valid square on the board
     // poscon: all the squares that the pawn controls on the board, as of the square
     // given
+    @Override
     public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
         ArrayList<Square> controlledSquares = new ArrayList<Square>();
         if (start == null || board == null) {
@@ -69,6 +65,7 @@ public class Pawn extends Piece{
 
     // precon: a valid 8x8 chess board, and a valid square on that chess board
     // poscon: returns all the legal moves for the pawn on that square
+    @Override
     public ArrayList<Square> getLegalMoves(Board b, Square start) {
         ArrayList<Square> moves = new ArrayList<Square>();
         boolean iswhite = this.getColor();
