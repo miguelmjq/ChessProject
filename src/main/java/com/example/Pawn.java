@@ -2,14 +2,7 @@
 // Pawn, moves forward one square and captures diagonally forward. Can move forward 2 spaces if it's the pawn's first move.
 package com.example;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 //you will need to implement two functions in this file.
 
@@ -19,6 +12,12 @@ public class Pawn extends Piece{
     public Pawn(boolean isWhite, String img_file) {
             super(isWhite, img_file);
     }
+
+    @Override
+	public String toString() {
+
+		return "A " + super.toString() + " pawn";
+	}
 
     // precon: a valid double square array, a valid square on the board
     // poscon: all the squares that the pawn controls on the board, as of the square

@@ -4,6 +4,7 @@
 //This class represents the King piece in our chess game. It is able to move exactly one square in any direction and controls those squares.
 //All functionality associated with checks is religated to the class Board. (You'll have to implement that part yourself!).
 package com.example;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -28,62 +29,65 @@ public class King extends Piece {
 	public ArrayList<Square> getLegalMoves(Board b, Square currentSquare) {
 		ArrayList<Square> legalMoves = new ArrayList<>();
 		Square[][] board = b.getSquareArray();
-		int row = currentSquare.getY();
-		int col = currentSquare.getX();
-		
-		//left
+		int row = currentSquare.getRow();
+		int col = currentSquare.getCol();
+
+		// left
 		if (col > 0) {
-			if (col -1 >0){
-			if (!board[row][col-1].isOccupied() || board[row][col -1].getOccupyingPiece().getColor() != this.getColor()) {
-				legalMoves.add(board[row][col-1]);
+			
+			if (!board[row][col - 1].isOccupied()
+					|| board[row][col - 1].getOccupyingPiece().getColor() != this.getColor()) {
+				legalMoves.add(board[row][col - 1]);
 			}
-		}
-			//left up
+
+			// left up
 			if (row > 0) {
-				if (col -1 >0 && row -1 >0){
-				if (!board[row -1 ][col -1].isOccupied()
+
+				if (!board[row - 1][col - 1].isOccupied()
 						|| board[row - 1][col - 1].getOccupyingPiece().getColor() != this.getColor()) {
 					legalMoves.add(board[row - 1][col - 1]);
 				}
+
 			}
-			}
-			//left down
-			if (row < board.length-1) {
-				if (!board[row+1][col-1].isOccupied()
-						|| board[row+1][col-1].getOccupyingPiece().getColor() != this.getColor()) {
-					legalMoves.add(board[row+1][col-1]);
+			// left down
+			if (row < board.length - 1) {
+				if (!board[row + 1][col - 1].isOccupied()
+						|| board[row + 1][col - 1].getOccupyingPiece().getColor() != this.getColor()) {
+					legalMoves.add(board[row + 1][col - 1]);
 				}
 			}
 		}
-		//up
+		// up
 		if (row > 0) {
-			if (!board[row-1][col].isOccupied() || board[row-1][col].getOccupyingPiece().getColor() != this.getColor()) {
+			if (!board[row - 1][col].isOccupied()
+					|| board[row - 1][col].getOccupyingPiece().getColor() != this.getColor()) {
 				legalMoves.add(board[row - 1][col]);
 			}
 		}
-		//down
+		// down
 		if (row < board.length - 1) {
-			if (!board[row +1][col].isOccupied()
-					|| board[row+1][col].getOccupyingPiece().getColor() != this.getColor()) {
-				legalMoves.add(board[row+1][col]);
+			if (!board[row + 1][col].isOccupied()
+					|| board[row + 1][col].getOccupyingPiece().getColor() != this.getColor()) {
+				legalMoves.add(board[row + 1][col]);
 			}
 		}
-		//right
-		if (col < board[row].length-1) {
-			if (!board[row][col+1].isOccupied() || board[row][col+1].getOccupyingPiece().getColor() != this.getColor()) {
-				legalMoves.add(board[row][col+1]);
+		// right
+		if (col < board[row].length - 1) {
+			if (!board[row][col + 1].isOccupied()
+					|| board[row][col + 1].getOccupyingPiece().getColor() != this.getColor()) {
+				legalMoves.add(board[row][col + 1]);
 			}
-			//right up
+			// right up
 			if (row > 0) {
 
-				if (!board[row-1][col+ 1].isOccupied()
-						|| board[row-1][col+1].getOccupyingPiece().getColor() != this.getColor()) {
-					legalMoves.add(board[row-1][col+1]);
+				if (!board[row - 1][col + 1].isOccupied()
+						|| board[row - 1][col + 1].getOccupyingPiece().getColor() != this.getColor()) {
+					legalMoves.add(board[row - 1][col + 1]);
 				}
 			}
-			//right down
-			if (row < board.length -1) {
-				if (!board[row+1][col + 1].isOccupied()
+			// right down
+			if (row < board.length - 1) {
+				if (!board[row + 1][col + 1].isOccupied()
 						|| board[row + 1][col + 1].getOccupyingPiece().getColor() != this.getColor()) {
 					legalMoves.add(board[row + 1][col + 1]);
 				}
