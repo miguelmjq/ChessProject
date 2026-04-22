@@ -34,9 +34,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     private static final String RESOURCES_WROOK_PNG = path + "wrook.png";
     @SuppressWarnings("unused")
     private static final String RESOURCES_BROOK_PNG = path + "brook.png";
-   // @SuppressWarnings("unused")
+    // @SuppressWarnings("unused")
     private static final String RESOURCES_WKING_PNG = path + "wking.png";
-    //@SuppressWarnings("unused")
+    // @SuppressWarnings("unused")
     private static final String RESOURCES_BKING_PNG = path + "bking.png";
     @SuppressWarnings("unused")
     private static final String RESOURCES_BQUEEN_PNG = path + "bqueen.png";
@@ -61,8 +61,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     private int currX;
     private int currY;
 
-    //precon: 
-    //poscon: creates an 8x8 chess board that is displayed
+    // precon:
+    // poscon: creates an 8x8 chess board that is displayed
     public Board(GameWindow g) {
         this.g = g;
         board = new Square[8][8];
@@ -70,7 +70,6 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
-
 
         boolean whiteSquare = true;
         for (int row = 0; row < 8; row++) {
@@ -93,42 +92,48 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     }
 
-    //precon: N/A
-    //poscon: puts the pawns and kings on the board
+    // precon: N/A
+    // poscon: puts the pawns and kings on the board
     void initializePieces() {
-        //king
+        // king
         {
-        board[7][4].put(new King(true, RESOURCES_WKING_PNG));
-        board[0][4].put(new King(false, RESOURCES_BKING_PNG));
+            board[7][4].put(new King(true, RESOURCES_WKING_PNG));
+            board[0][4].put(new King(false, RESOURCES_BKING_PNG));
         }
-        //rook 
+        // rook
         {
-        board[7][7].put(new Rook(true, RESOURCES_WROOK_PNG));
-        board[7][0].put(new Rook(true, RESOURCES_WROOK_PNG));
-        board[0][7].put(new Rook(false, RESOURCES_BROOK_PNG));
-        board[0][0].put(new Rook(false, RESOURCES_BROOK_PNG));
+            board[7][7].put(new Rook(true, RESOURCES_WROOK_PNG));
+            board[7][0].put(new Rook(true, RESOURCES_WROOK_PNG));
+            board[0][7].put(new Rook(false, RESOURCES_BROOK_PNG));
+            board[0][0].put(new Rook(false, RESOURCES_BROOK_PNG));
         }
-        //pawns
+        // pawns
         {
-        for (int i = 0; i < 8; i++) {
-            board[6][i].put(new Pawn(true, RESOURCES_WPAWN_PNG));
-            board[1][i].put(new Pawn(false, RESOURCES_BPAWN_PNG));
+            for (int i = 0; i < 8; i++) {
+                board[6][i].put(new Pawn(true, RESOURCES_WPAWN_PNG));
+                board[1][i].put(new Pawn(false, RESOURCES_BPAWN_PNG));
+            }
         }
-        }
-        //knight
+        // knight
         {
-        board[7][1].put(new Knight(true, RESOURCES_WKNIGHT_PNG));
-        board[7][6].put(new Knight(true, RESOURCES_WKNIGHT_PNG));
-        board[0][1].put(new Knight(false, RESOURCES_BKNIGHT_PNG));
-        board[0][6].put(new Knight(false, RESOURCES_BKNIGHT_PNG));
+            board[7][1].put(new Knight(true, RESOURCES_WKNIGHT_PNG));
+            board[7][6].put(new Knight(true, RESOURCES_WKNIGHT_PNG));
+            board[0][1].put(new Knight(false, RESOURCES_BKNIGHT_PNG));
+            board[0][6].put(new Knight(false, RESOURCES_BKNIGHT_PNG));
         }
-        //queen
+        // bishop
         {
-        board[7][3].put(new Queen(true, RESOURCES_WQUEEN_PNG));
-        board[0][3].put(new Queen(false, RESOURCES_BQUEEN_PNG));
+            board[7][2].put(new Bishop(true, RESOURCES_WBISHOP_PNG));
+            board[7][5].put(new Bishop(true, RESOURCES_WBISHOP_PNG));
+            board[0][2].put(new Bishop(false, RESOURCES_BBISHOP_PNG));
+            board[0][5].put(new Bishop(false, RESOURCES_BBISHOP_PNG));
+        }
+        // queen
+        {
+            board[7][3].put(new Queen(true, RESOURCES_WQUEEN_PNG));
+            board[0][3].put(new Queen(false, RESOURCES_BQUEEN_PNG));
         }
     }
-
 
     public Square[][] getSquareArray() {
         return this.board;
@@ -158,7 +163,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         if (imageUrl != null) {
             // This is the cleanest way to get an AWT Image object from a URL
             backgroundImage = Toolkit.getDefaultToolkit().createImage(imageUrl);
-        } 
+        }
 
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
@@ -166,7 +171,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 if (sq == fromMoveSquare)
                     sq.setBorder(BorderFactory.createLineBorder(Color.blue));
                 sq.paintComponent(g);
-               // System.out.println("Painting square at " + x + ", " + y);
+                // System.out.println("Painting square at " + x + ", " + y);
 
             }
         }
@@ -189,29 +194,27 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         if (sq.isOccupied() && sq.getOccupyingPiece().getColor() == whiteTurn) {
             currPiece = sq.getOccupyingPiece();
             fromMoveSquare = sq;
-            for(Square s: currPiece.getControlledSquares(board, fromMoveSquare)){
+            for (Square s : currPiece.getControlledSquares(board, fromMoveSquare)) {
                 s.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
             }
-            for(Square s: currPiece.getLegalMoves(this, fromMoveSquare)){
+            for (Square s : currPiece.getLegalMoves(this, fromMoveSquare)) {
                 s.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
             }
-           
 
             sq.setDisplay(false);
         }
         repaint();
     }
 
-
-    //precon: dragging a piece
-    //poscon: moves the piece to another square if the square selected is valid.
+    // precon: dragging a piece
+    // poscon: moves the piece to another square if the square selected is valid.
     @Override
     public void mouseReleased(MouseEvent e) {
-        //@SuppressWarnings("unused")
+        // @SuppressWarnings("unused")
         Square endSquare = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
 
-        for(Square[] row: board){
-            for(Square s: row){
+        for (Square[] row : board) {
+            for (Square s : row) {
                 s.setBorder(null);
             }
         }
@@ -224,21 +227,30 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         }
 
         // using currPiece
-        if (fromMoveSquare != null && (fromMoveSquare != endSquare)) {
-            boolean moved = false;
-            if (currPiece != null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)) {
+        if (fromMoveSquare != null && currPiece != null) {
+            fromMoveSquare.setDisplay(true);
+            if (currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)
+                    && whiteTurn == currPiece.getColor()) {
+                Piece captured = endSquare.getOccupyingPiece();
                 endSquare.put(currPiece);
-                endSquare.setDisplay(true);
-                moved = true;
-            }
-            if (moved) {
                 fromMoveSquare.removePiece();
-            } else {
-                fromMoveSquare.setDisplay(true);
+                if (isInCheck(whiteTurn)) {
+                    fromMoveSquare.put(currPiece);
+                    endSquare.put(captured);
+                } else {
+                    whiteTurn = !whiteTurn;
+                }
             }
         }
         currPiece = null;
         repaint();
+    }
+
+    // precondition - the board is initialized and contains a king of either color.
+    // The boolean kingColor corresponds to the color of the king we wish to know the status of.
+    // postcondition - returns true of the king is in check and false otherwise.
+    public boolean isInCheck(boolean kingColor) {
+        return false;
     }
 
     @Override
