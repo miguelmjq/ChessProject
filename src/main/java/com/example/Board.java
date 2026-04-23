@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -247,9 +248,28 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     }
 
     // precondition - the board is initialized and contains a king of either color.
-    // The boolean kingColor corresponds to the color of the king we wish to know the status of.
+    // The boolean kingColor corresponds to the color of the king we wish to know
+    // the status of.
     // postcondition - returns true of the king is in check and false otherwise.
     public boolean isInCheck(boolean kingColor) {
+        int row = board.length;
+        int col = board[0].length;
+        for (int r = 0; r < row; r++) {
+            for (int c = 0; c < col; c++) {
+                if (board[r][c].isOccupied() && (board[r][c].getOccupyingPiece().getColor() != kingColor)) {
+                    ArrayList<Square> controlledSquares = board[r][c].getOccupyingPiece().getControlledSquares(board,
+                            board[r][c]);
+                    for (Square i : controlledSquares) {
+                        System.out.println("checked square" + i.getCol() + "," + i.getRow());
+                        System.out.println(kingColor);
+                        if (i.getOccupyingPiece() instanceof King && (i.getOccupyingPiece().getColor() == kingColor)) {
+                            System.out.println("happened");
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
 
